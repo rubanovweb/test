@@ -128,9 +128,10 @@
 7. С помощью цикла for сформируйте строку '123456789' и запишите ее в переменную str.
 *****/
 
-let MAXLENGTHSTR = 50;
+const MAXLENGTHSTR = 50;
 let str = "";
 let symbol = "*";
+let flag = true;
 
 let lengthStr = Number(prompt("Длина строки:"));
 
@@ -144,19 +145,23 @@ if (lengthStr.toString() != "NaN") {
                             str += i;
                         }
                         break;
-            case false: symbol = prompt("Укажите символ для заполнения строки:");
-                        if(symbol.length == 1) {
-                            
-                            
-                            // for (let i = 1; i <= lengthStr; i++) {
-                            //     str += i;
-                            // }
-                        }
-                        else {
-                            alert("Ошибка!!! Введите один символ!");
+            case false: while(flag) {
+                            symbol = prompt("Укажите символ для заполнения строки:");
+                            if(symbol != null) {
+                                if(symbol.length == 1) {
+                                    for (let i = 1; i <= lengthStr; i++) {
+                                        str += symbol;
+                                    }
+                                    break;
+                                }
+                            }
+                            else {
+                                flag = false;
+                            }
                         }
                         break;
         }
+        flag ? alert(`Результат:\n${str}`) : alert("Вы отменили!");
     }
     else if(lengthStr == "") {
         alert(`Ошибка!!! Длина строки не должна быть пустой!`);
