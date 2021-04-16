@@ -238,46 +238,35 @@
 // }
 // console.log(massLet);
 
-let month = "";
-let dayWeek = "";
+let a, b, c; //коэф. кв. уравнения
+let D; //дискриминант
+let x1, x2; //корни кв. уравнения
+let cancel;
 
-let date = new Date();
-
-let arrayDays = {
-    0: "воскресенье",
-    1: "понедельник",
-    2: "вторник",
-    3: "среда",
-    4: "четверг",
-    5: "пятница",
-    6: "суббота"
+function setParametrs () {
+    a = setParam("a");
+    b = setParam("b");
+    c = setParam("c");
 }
 
-let arrayMonth = {
-    0: "январь",
-    1: "февраль",
-    2: "март",
-    3: "апрель",
-    4: "май",
-    5: "июнь",
-    6: "июль",
-    7: "август",
-    8: "сентябрь",
-    9: "октябрь",
-    10: "ноябрь",
-    11: "декабрь"
+function setParam(nameParam) {
+    let param;
+    do {
+        param = prompt(`Коэф. ${nameParam}:`);
+        cancel = checkParametr(param);
+    } while (cancel);
+
+    return param;
 }
 
-for (let index in arrayDays) {
-    if(date.getDay() == index) {
-        dayWeek = arrayDays[index];
+function checkParametr(param) {
+    if (typeof param == "object") {
+        return false;
+    }
+    else if (isNaN(param) || param == "") {
+        alert("Ошибка! Введена пустая строка или не число!");
+        return true;
     }
 }
 
-for (let index in arrayMonth) {
-    if (date.getMonth() == index) {
-        month = arrayMonth[index];
-    }
-}
-
-console.log(`Сегодня - ${date.getFullYear()}, ${month}, ${date.getDate()}(${dayWeek}). Время ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`);
+setParametrs();
