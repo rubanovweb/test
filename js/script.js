@@ -238,15 +238,20 @@
 // }
 // console.log(massLet);
 
-let a, b, c; //коэф. кв. уравнения
-let D; //дискриминант
 let x1, x2; //корни кв. уравнения
-let cancel;
+let cancel; //флаг для проверки ввода параметра
 
-function setParametrs () {
-    a = setParam("a");
-    b = setParam("b");
-    c = setParam("c");
+function setParametrs() {
+    let a, b, c; //коэф. кв. уравнения
+
+    if(a = setParam("a")) {
+        if(b = setParam("b")) {
+            if(c = setParam("c"))
+            {
+                return [a, b, c];
+            }
+        }
+    };
 }
 
 function setParam(nameParam) {
@@ -269,4 +274,72 @@ function checkParametr(param) {
     }
 }
 
-setParametrs();
+function calcSolution(a, b, c) {
+    let x1, x2; //корни уравнения
+    let D; //дискриминант
+    let result; //строка с итогом
+
+    if ((a == 0 && c == 0) || (b == 0 && c == 0) ) {
+        result = 0;
+    }
+    // else if ((a == 0 && b == 0) || (a == 0 && b == 0 && c == 0)) {
+    //     result = "Корней нет!";
+    // }
+    else if(a == 0) {
+        result = -c/b;
+    }
+    else if(b == 0) {
+        (-c / a >= 0) ? result = Math.sqrt(-c / a) : result = "Корней нет!";
+    }
+    else if (c == 0) {
+        x1 = 0;
+        x2 = -b/a;
+
+        result = [x1, x2];
+    }
+    else if(a != 0 && b != 0 && c != 0) {
+         D = calcD(a, b, c);
+         result = calcRoots(D, a, b, c);
+    }
+    else {
+        result = "Корней нет!";
+    }
+
+    return result;
+}
+
+function calcD(a, b, c) {
+    return b ** 2 - 4 * a * c;
+}
+
+function calcRoots(D, a, b, c) {
+    if(D > 0) {
+        x1 = (-b + Math.sqrt(D)) / (2 * a);
+        x2 = (-b - Math.sqrt(D)) / (2 * a);
+
+        return [x1, x2];
+    }
+    else if (D == 0) {
+        return -b / (2 * a);
+    }
+    else {
+        return "Корней нет!";
+    }
+}
+
+function getSolution(solution) {
+    if(typeof solution == "string") {
+        alert(solution);
+    }
+    else if(typeof solution == "number") {
+        alert(`Уравнение имеет один корень: x = ${solution}`);
+    }
+    else {
+        alert(`Уравнение квадратное. Имеет два корня: \nx1 = ${solution[0]}\nx2 = ${solution[1]}`);
+    }
+}
+
+let params = setParametrs();
+let solution = calcSolution(params[0], params[1], params[2]);
+
+getSolution(solution);
