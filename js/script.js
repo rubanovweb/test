@@ -1,15 +1,51 @@
 // Решение уравнения
 
-let params = setParametrs();
-let solution;
+let inputParamA = document.getElementById("param_a");
+let inputParamB = document.getElementById("param_b");
+let inputParamC = document.getElementById("param_c");
 
-if (typeof params != "undefined") {
-    solution = calcSolution(params[0], params[1], params[2]);
-    getSolution(solution);
-}
-else {
-    alert("Вы отменили ввод!");
-}
+let divButtons = document.querySelector(".buttons");
+
+let paramA;
+let paramB;
+let paramC;
+let result;
+
+let btnCalc = document.getElementById("btn_calc");
+
+inputParamA.addEventListener("input", () => {
+    inputParamB.removeAttribute("disabled");
+    paramA = +inputParamA.value;
+})
+
+inputParamB.addEventListener("input", () => {
+    inputParamC.removeAttribute("disabled");
+    paramB = +inputParamB.value;
+})
+
+inputParamC.addEventListener("input", () => {
+    btnCalc.removeAttribute("disabled");
+    paramC = +inputParamC.value;
+})
+
+btnCalc.addEventListener("click", () => {
+    result = calcSolution(paramA, paramB, paramC);
+
+    let solution = document.createElement("p");
+    solution.innerHTML = result;
+    divButtons.append(solution);
+})
+
+// let params = setParametrs();
+// let solution;
+
+// if (typeof params != "string") {
+//     solution = calcSolution(params[0], params[1], params[2]);
+//     getSolution(solution);
+// }
+// else {
+//     alert(params);
+// }
 
 function setParametrs() {
     let a, b, c; //коэф. кв. уравнения
@@ -22,6 +58,7 @@ function setParametrs() {
             }
         }
     }
+    return "Вы отменили ввод!";
 }
 
 function setParam(nameParam) {

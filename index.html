@@ -10,7 +10,22 @@
 </head>
 <body>
     
-    
+    <h1 class="title">Решение уравнения</h1>
+
+    <form class="form-equation">
+        <fieldset>
+            <legend>Коэффициенты</legend>
+
+            <input class="params" id="param_a" type="number" placeholder="Коэф. a">
+            <input class="params" id="param_b" type="number" placeholder="Коэф. b" disabled>
+            <input class="params" id="param_c" type="number" placeholder="Коэф. c" disabled>
+
+            <div class="buttons">
+                <input class="btn btn-calc" id="btn_calc" type="button" value="Произвести расчёт" disabled>
+                <input class="btn btn-reset" id="btn_reset" type="reset" value="Очистить поля">
+            </div>
+        </fieldset>
+    </form>
 
     <script src="js/script.js" async></script>
 </body>
