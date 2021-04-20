@@ -9,6 +9,10 @@ let paramA; //значение коэф. а
 let paramB; //значение коэф. b
 let paramC; //значение коэф. c
 
+let rangeParamA = document.getElementById("range_a");
+let rangeParamB = document.getElementById("range_b");
+let rangeParamC = document.getElementById("range_c");
+
 let btnCalc = document.getElementById("btn_calc"); //кнопка расчёта
 let btnReset = document.getElementById("btn_reset"); //кнопка очистки
 
@@ -37,13 +41,37 @@ inputParamC.addEventListener("input", () => {
     paramC = +inputParamC.value;
 })
 
+// обработчик события "change" при изменении ползунка коэф. a 
+rangeParamA.addEventListener("change", () => {
+    inputParamA.value = rangeParamA.value;
+
+    inputParamB.removeAttribute("disabled");
+    rangeParamB.removeAttribute("disabled");
+
+    btnCalc.removeAttribute("disabled");
+    btnReset.removeAttribute("disabled");
+})
+
+// обработчик события "change" при изменении ползунка коэф. b 
+rangeParamB.addEventListener("change", () => {
+    inputParamB.value = rangeParamB.value;
+
+    inputParamC.removeAttribute("disabled");
+    rangeParamC.removeAttribute("disabled");
+})
+
+// обработчик события "change" при изменении ползунка коэф. b 
+rangeParamC.addEventListener("change", () => {
+    inputParamC.value = rangeParamC.value;
+})
+
 // обработчик события "click" при клике по кнопке "Очистить"
 btnReset.addEventListener("click", () => {
     for(let item of inputs) {
-        if(item.getAttribute("type") == "number") {
+        if (item.getAttribute("type") == "number" || item.getAttribute("type") == "range") {
             item.value = "";
         }
-        if(item.getAttribute("id") == "param_a") {
+        if(item.getAttribute("id") == "param_a" || item.getAttribute("id") == "range_a") {
             continue;
         }
         else {
