@@ -13,8 +13,8 @@ let btnCalc = document.getElementById("btn_calc"); //кнопка расчёта
 let btnReset = document.getElementById("btn_reset"); //кнопка очистки
 
 let result; //результат вычисления
-let solution; //объект (параграф) для вывода результата
-let removed;
+let solution; //объект для вывода результата
+let removed; //удалённый объект, содержащий строку результата
 
 // обработчик события "input" при вводе в поле коэф. a 
 inputParamA.addEventListener("input", () => {
@@ -148,6 +148,7 @@ function createElem(tag, content) {
 
     elem = document.createElement(tag);
     elem.innerHTML = content;
+    elem.classList.add("solution");
 
     return elem;
 }
@@ -155,15 +156,16 @@ function createElem(tag, content) {
 // функция проверки результата вычисления
 function checkResult(result) {
     if (typeof result == "string") {
-        return result;
+        return `<strong>${result}</strong>`;
     }
     else if (typeof result == "number") {
-        return `Уравнение имеет один корень: x = ${result.toFixed(2)}`;
+        return `Уравнение имеет один корень: <strong>x = ${result.toFixed(2)}</strong>`;
     }
     else {
-        return "Уравнение квадратное. Имеет два корня:\n" + "x1 = " + result[0].toFixed(2) + "\nx2 = " + result[1].toFixed(2);
+        return `Уравнение квадратное.<br>Имеет два корня: <strong>x1 = ${result[0].toFixed(2)}; x2 = ${result[1].toFixed(2)}</strong>`;
     }
 }
+
 
 
 // let params = setParametrs();
