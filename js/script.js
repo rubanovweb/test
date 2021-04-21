@@ -18,11 +18,20 @@ let btnCalc = document.getElementById("btn_calc"); //кнопка расчёта
 let btnReset = document.getElementById("btn_reset"); //кнопка очистки
 let btnPlay = document.getElementById("btn_play"); //кнопка музыки
 
-// let player = document.getElementById("player");
+let player;
+let playerAttributes = {
+    "id": "player",
+    "src": "media/sample.mp3",
+    "controls": "",
+    "autoplay": "",
+    "class": "player"
+};
+
 
 let result; //результат вычисления
 let solution; //объект для вывода результата
 let removed; //удалённый объект, содержащий строку результата
+let removedPlayer; //удалённый плеер
 
 // обработчик события "input" при вводе в поле коэф. a 
 inputParamA.addEventListener("input", () => {
@@ -81,20 +90,31 @@ btnReset.addEventListener("click", () => {
     removed = document.body.removeChild(solution);
 })
 
-// обработчик события "click" при клике по кнопке "Включить музыку"
+// обработчик события "click" при клике по кнопке "Показать/удалить плеер"
 btnPlay.addEventListener("click", () => {
-    let player = document.createElement("audio");
-    
-    player.setAttribute("id", "player");
-    player.setAttribute("src", "media/sample.mp3");
-    player.setAttribute("controls", "");
-    player.setAttribute("muted", "");
-    player.setAttribute("autoplay", "");
+    if(document.getElementById("player")) {
+        document.body.removeChild(player);
+        btnPlay.setAttribute("value", "Показать плеер");
+    }
+    else {
+        player = createPlayer("audio", playerAttributes);
 
-    player.classList.add("player", "player-show");
-
-    document.body.append(player);
+        document.body.append(player);
+        btnPlay.setAttribute("value", "Удалить плеер");
+    }
 })
+
+// функция создания аудио-плеера
+function createPlayer(tag, attr) {
+    let player = document.createElement(tag);
+
+    for(let key in attr) {
+        player.setAttribute(key, attr[key]);
+    }
+    player.classList.add("player-show");
+
+    return player;
+}
 
 // функция разблокировки полей и кнопок
 function unBlocked(input, range, buttons) {
