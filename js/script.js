@@ -18,7 +18,7 @@ let btnCalc = document.getElementById("btn_calc"); //кнопка расчёта
 let btnReset = document.getElementById("btn_reset"); //кнопка очистки
 let btnPlay = document.getElementById("btn_play"); //кнопка музыки
 
-let player = document.getElementById("player");
+// let player = document.getElementById("player");
 
 let result; //результат вычисления
 let solution; //объект для вывода результата
@@ -83,10 +83,17 @@ btnReset.addEventListener("click", () => {
 
 // обработчик события "click" при клике по кнопке "Включить музыку"
 btnPlay.addEventListener("click", () => {
-    player.classList.toggle("player-show");
-
+    let player = document.createElement("audio");
+    
+    player.setAttribute("id", "player");
+    player.setAttribute("src", "media/sample.mp3");
+    player.setAttribute("controls", "");
+    player.setAttribute("muted", "");
     player.setAttribute("autoplay", "");
-    player.removeAttribute("muted");
+
+    player.classList.add("player", "player-show");
+
+    document.body.append(player);
 })
 
 // функция разблокировки полей и кнопок
