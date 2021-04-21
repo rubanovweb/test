@@ -22,47 +22,48 @@ let removed; //удалённый объект, содержащий строк�
 
 // обработчик события "input" при вводе в поле коэф. a 
 inputParamA.addEventListener("input", () => {
-    inputParamB.removeAttribute("disabled");
-    
-    btnCalc.removeAttribute("disabled");
-    btnReset.removeAttribute("disabled");
+    paramA = +inputParamA.value; //значение коэф. а
+    rangeParamA.value = paramA; //значение ползунка с коэф. a
 
-    paramA = +inputParamA.value;
+    unBlocked(inputParamB, rangeParamB, btnCalc, btnReset);
 })
 
 // обработчик события "input" при вводе в поле коэф. b
 inputParamB.addEventListener("input", () => {
-    inputParamC.removeAttribute("disabled");
-    paramB = +inputParamB.value;
-})
-
-// обработчик события "input" при вводе в поле коэф. c
-inputParamC.addEventListener("input", () => {
-    paramC = +inputParamC.value;
-})
-
-// обработчик события "change" при изменении ползунка коэф. a 
-rangeParamA.addEventListener("change", () => {
-    inputParamA.value = rangeParamA.value;
-
-    inputParamB.removeAttribute("disabled");
-    rangeParamB.removeAttribute("disabled");
-
-    btnCalc.removeAttribute("disabled");
-    btnReset.removeAttribute("disabled");
-})
-
-// обработчик события "change" при изменении ползунка коэф. b 
-rangeParamB.addEventListener("change", () => {
-    inputParamB.value = rangeParamB.value;
+    paramB = +inputParamB.value; //значение коэф. b
+    rangeParamB.value = paramB; //значение ползунка с коэф. b
 
     inputParamC.removeAttribute("disabled");
     rangeParamC.removeAttribute("disabled");
 })
 
+// обработчик события "input" при вводе в поле коэф. c
+inputParamC.addEventListener("input", () => {
+    paramC = +inputParamC.value; //значение коэф. c
+    rangeParamC.value = paramC; //значение ползунка с коэф. c
+})
+
+// обработчик события "change" при изменении ползунка коэф. a 
+rangeParamA.addEventListener("change", () => {
+    paramA = rangeParamA.value; //значение коэф. a
+    inputParamA.value = paramA; //значение поля с коэф. a
+
+    unBlocked(inputParamB, rangeParamB, btnCalc, btnReset);
+})
+
 // обработчик события "change" при изменении ползунка коэф. b 
+rangeParamB.addEventListener("change", () => {
+    paramB = rangeParamB.value; //значение коэф. b
+    inputParamB.value = paramB; //значение поля с коэф. b
+
+    inputParamC.removeAttribute("disabled");
+    rangeParamC.removeAttribute("disabled");
+})
+
+// обработчик события "change" при изменении ползунка коэф. c 
 rangeParamC.addEventListener("change", () => {
-    inputParamC.value = rangeParamC.value;
+    paramC = rangeParamC.value; //значение коэф. c
+    inputParamC.value = paramC; //значение поля с коэф. c
 })
 
 // обработчик события "click" при клике по кнопке "Очистить"
@@ -83,9 +84,19 @@ btnReset.addEventListener("click", () => {
 
 // обработчик события "click" при клике по кнопке "Произвести расчёт"
 btnCalc.addEventListener("click", () => {
+    console.log(paramA + ' ' + paramB + ' ' + paramC);
     result = calcSolution(paramA, paramB, paramC);
     printSolution();
 })
+
+// функция разблокировки полей и кнопок
+function unBlocked(input, range, btnCalc, btnReset) {
+    input.removeAttribute("disabled");
+    range.removeAttribute("disabled");
+
+    btnCalc.removeAttribute("disabled");
+    btnReset.removeAttribute("disabled");
+}
 
 // главная функция расчёта корней (вычисление)
 function calcSolution(a, b, c) {
