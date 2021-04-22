@@ -27,11 +27,8 @@ let playerAttributes = {
     "class": "player"
 };
 
-
 let result; //результат вычисления
 let solution; //объект для вывода результата
-let removed; //удалённый объект, содержащий строку результата
-let removedPlayer; //удалённый плеер
 
 // обработчик события "input" при вводе в поле коэф. a 
 inputParamA.addEventListener("input", () => {
@@ -87,7 +84,7 @@ btnReset.addEventListener("click", () => {
             item.setAttribute("disabled", "disabled");
         }
     }
-    removed = document.body.removeChild(solution);
+    document.body.removeChild(solution);
 })
 
 // обработчик события "click" при клике по кнопке "Показать/удалить плеер"
@@ -204,17 +201,12 @@ function calcRoots(D, a, b, c) {
 
 // функция вывода результа на страницу (в объект p)
 function printSolution() {
-    if (removed) {
-        solution = createElem("p", "");
-        document.body.append(solution);
-
-        removed = null;
-    }
-    if (solution) {
+    if (document.querySelector(".solution")) {
         solution.innerHTML = checkResult(result);
     }
     else {
         solution = createElem("p", checkResult(result));
+        solution.innerHTML = checkResult(result);
         document.body.append(solution);
     }
 }
