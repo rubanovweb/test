@@ -37,8 +37,9 @@ let solution; //объект для вывода результата
 inputPageBgColor.addEventListener("input", () => {
     document.body.style.backgroundColor = inputPageBgColor.value;
 
-    for(let title of titles) {
-        title.style.color = "#ff0000";
+    for (let title of titles) {
+        title.style.color = document.body.style.backgroundColor;
+        title.style.filter = "invert(75%) hue-rotate(270deg)";
     }
 })
 
