@@ -50,32 +50,21 @@ inputPageBgColor.addEventListener("input", () => {
 
 // обработчик события "input" при загрузки фонового изображения
 inputPageImgLink.addEventListener("change", () => {
-    document.body.style.backgroundImage = `url("${inputPageImgLink.value}")`;
     indexChecked = getIndexChecked(bgSize);
-
-    switch(indexChecked) {
-        case 0: document.body.style.backgroundRepeat = "no-repeat";
-                document.body.style.backgroundSize = "1920px";
-                break;
-        case 1: document.body.style.backgroundRepeat = "no-repeat";
-                document.body.style.backgroundSize = "cover";
-                break;
-        case 2: break;
-    }
+    setBgPage(indexChecked);
 })
 
 // обработчик события "input" при выборе обычного масштаба
-bgSize[indexChecked].addEventListener("input", () => {
+bgSize[0].addEventListener("input", () => {
+    setBgPage(0);
+})
 
-    // switch (indexChecked) {
-    //     case 0: document.body.style.backgroundRepeat = "no-repeat";
-    //         document.body.style.backgroundSize = "1920px";
-    //         break;
-    //     case 1: document.body.style.backgroundRepeat = "no-repeat";
-    //         document.body.style.backgroundSize = "cover";
-    //         break;
-    //     case 2: break;
-    // }
+bgSize[1].addEventListener("input", () => {
+    setBgPage(1);
+})
+
+bgSize[2].addEventListener("input", () => {
+    setBgPage(2);
 })
 
 // обработчик события "input" при вводе в поле коэф. a 
@@ -148,6 +137,7 @@ btnPlay.addEventListener("click", () => {
     }
 })
 
+// функция, возвращающая порядковый номер выбранного переключателя
 function getIndexChecked(bgSize) { 
     for (let i = 0; i < bgSize.length; i++) {
         if (bgSize[i].checked) {
@@ -156,6 +146,21 @@ function getIndexChecked(bgSize) {
     }
 }
 
+// функция, задающая изображение фона страницы
+function setBgPage(checked) {
+    document.body.style.backgroundImage = `url("${inputPageImgLink.value}")`;
+    
+    switch(checked) {
+        case 0: document.body.style.backgroundRepeat = "no-repeat";
+                document.body.style.backgroundSize = "1920px";
+                break;
+        case 1: document.body.style.backgroundRepeat = "no-repeat";
+                document.body.style.backgroundSize = "cover";
+                break;
+        case 2: document.body.style.backgroundRepeat = "repeat";
+                break;
+    }
+}
 
 // функция создания аудио-плеера
 function createPlayer(tag, attr) {
