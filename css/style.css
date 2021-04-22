@@ -52,6 +52,10 @@ body {
     color: rgb(110, 110, 110);
 }
 
+.form-equation .url {
+    width: 50%;
+}
+
 .form-equation .params {
     box-sizing: border-box;
     padding: 5px 10px;

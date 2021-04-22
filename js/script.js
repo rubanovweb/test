@@ -2,7 +2,12 @@
 let titles = document.querySelectorAll(".title") //заголовок и названия областей формы
 let inputs = document.querySelectorAll("input"); //коллекция полей (поля ввода и кнопки)
 
-let inputPageBgColor = document.getElementById("page_bgcolor");
+let inputPageBgColor = document.getElementById("page_bgcolor"); //поле с цветом фона
+let inputPageImgLink = document.getElementById("page_imglink"); //поле с ссылкой на картинку
+let bgSize = document.querySelectorAll("[name='bgSize']"); //переключатели фона
+let indexChecked = getIndexChecked(bgSize); //позиция выбранного переключателя
+
+// let inputPageBgImage = document.getElementById("page_bgimg"); //поле с файлом изображения фона
 
 let inputParamA = document.getElementById("param_a");
 let inputParamB = document.getElementById("param_b");
@@ -41,6 +46,36 @@ inputPageBgColor.addEventListener("input", () => {
         title.style.color = document.body.style.backgroundColor;
         title.style.filter = "invert(75%) hue-rotate(270deg)";
     }
+})
+
+// обработчик события "input" при загрузки фонового изображения
+inputPageImgLink.addEventListener("change", () => {
+    document.body.style.backgroundImage = `url("${inputPageImgLink.value}")`;
+    indexChecked = getIndexChecked(bgSize);
+
+    switch(indexChecked) {
+        case 0: document.body.style.backgroundRepeat = "no-repeat";
+                document.body.style.backgroundSize = "1920px";
+                break;
+        case 1: document.body.style.backgroundRepeat = "no-repeat";
+                document.body.style.backgroundSize = "cover";
+                break;
+        case 2: break;
+    }
+})
+
+// обработчик события "input" при выборе обычного масштаба
+bgSize[indexChecked].addEventListener("input", () => {
+
+    // switch (indexChecked) {
+    //     case 0: document.body.style.backgroundRepeat = "no-repeat";
+    //         document.body.style.backgroundSize = "1920px";
+    //         break;
+    //     case 1: document.body.style.backgroundRepeat = "no-repeat";
+    //         document.body.style.backgroundSize = "cover";
+    //         break;
+    //     case 2: break;
+    // }
 })
 
 // обработчик события "input" при вводе в поле коэф. a 
@@ -112,6 +147,15 @@ btnPlay.addEventListener("click", () => {
         btnPlay.setAttribute("value", "Удалить плеер");
     }
 })
+
+function getIndexChecked(bgSize) { 
+    for (let i = 0; i < bgSize.length; i++) {
+        if (bgSize[i].checked) {
+            return i;
+        }
+    }
+}
+
 
 // функция создания аудио-плеера
 function createPlayer(tag, attr) {

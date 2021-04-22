@@ -21,6 +21,25 @@
                 <input id="page_bgcolor" type="color" value="#ffffff">
             </div>
 
+            <div class="form-group">
+                <label for="page_imglink">Укажите ссылку на картинку: </label>
+                <input class="url" id="page_imglink" type="text">
+
+                <!-- <label for="page_bgimg">Загрузите фоновое изображение: </label> -->
+                <!-- <input id="page_bgimg" type="file" accept=".jpg,.png,.svg"> -->
+            </div>
+
+            <div class="form-group">
+                <input id="bgSize_default" name="bgSize" type="radio">
+                <label for="bgSize_default">Обычный</label>
+                
+                <input id="bgSize_zoom" name="bgSize" type="radio">
+                <label for="bgSize_zoom">Масштабирование</label>
+                
+                <input id="bgSize_mosaic" name="bgSize" type="radio" checked>
+                <label for="bgSize_mosaic">Мозаика</label>
+            </div>
+
         </fieldset>
         <fieldset class="parametrs">
             <legend class="title">Параметры уравнения</legend>
