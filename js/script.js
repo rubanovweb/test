@@ -1,4 +1,5 @@
 // Решение уравнения
+let titles = document.querySelectorAll(".title") //заголовок и названия областей формы
 let inputs = document.querySelectorAll("input"); //коллекция полей (поля ввода и кнопки)
 
 let inputPageBgColor = document.getElementById("page_bgcolor");
@@ -35,6 +36,10 @@ let solution; //объект для вывода результата
 // обработчик события "change" при изменении цвета фона 
 inputPageBgColor.addEventListener("input", () => {
     document.body.style.backgroundColor = inputPageBgColor.value;
+
+    for(let title of titles) {
+        title.style.color = "#ff0000";
+    }
 })
 
 // обработчик события "input" при вводе в поле коэф. a 
