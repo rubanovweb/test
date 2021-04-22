@@ -10,11 +10,20 @@
 </head>
 <body>
     
-    <h1 class="title">Решение уравнения</h1>
+    <h1 class="title">Работа с событиями (JS)</h1>
 
     <form class="form-equation">
-        <fieldset>
-            <legend>Коэффициенты</legend>
+        <fieldset class="settings">
+            <legend class="title">Настройки страницы</legend>
+
+            <div class="form-group">
+                <label for="page_bgcolor">Цвет фона: </label>
+                <input id="page_bgcolor" type="color" value="#ffffff">
+            </div>
+
+        </fieldset>
+        <fieldset class="parametrs">
+            <legend class="title">Параметры уравнения</legend>
 
             <input class="params" id="param_a" type="number" placeholder="Коэф. a">
             <input class="params" id="param_b" type="number" placeholder="Коэф. b" disabled>
