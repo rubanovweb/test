@@ -1,6 +1,7 @@
 const input = {
   type: "number",
   placeholder: "Введите возраст",
+  minValue: 1,
   styles: {
     display: "flex",
     margin: "20px auto 0",
@@ -27,6 +28,7 @@ document.body.insertAdjacentElement("afterbegin", inputAge);
 inputAge.focus();
 
 let p; //абзац с результатом
+let error; //окно с ошибкой
 
 const result = () => {
   if(document.getElementById("result")) {
@@ -39,7 +41,31 @@ const result = () => {
 }
 
 inputAge.addEventListener("input", () => {
-  result();
+  if(+inputAge.value > 0) {
+    if(document.querySelector(".error")) {
+        setTimeout(() => {
+          error.classList.remove("animate__backInDown");
+          error.classList.add("animate__backOutUp");
+        }, 500);
+        setTimeout(() => {error.remove();}, 3000);
+    }
+    result();
+  }
+  else {
+    if(inputAge.value != "") {
+        error = createElem("div");
+        document.body.insertAdjacentElement("afterbegin", error);
+    }
+    else {
+      if(document.querySelector(".error")) {
+       setTimeout(() => {
+          error.classList.remove("animate__backInDown");
+          error.classList.add("animate__backOutUp");
+        }, 500);
+        setTimeout(() => {error.remove();}, 3000);
+      }
+    }
+  }
 })
 
 function createElem(tagName) {
@@ -62,6 +88,9 @@ function createElem(tagName) {
                     elem.style[key] = input.getStyles()[key];
                   }
                   break;
+    case "div": elem.classList.add("error", "animate__animated", "animate__backInDown");
+                elem.textContent = "Ошибка! Возраст не может быть < 0.";
+                break;
   }
   
   return elem;
