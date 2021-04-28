@@ -1,50 +1,130 @@
-let users = [];
-let user;
-
-let countUsers = prompt("Кол-во пользователей (объектов):"); //string или null (object)
-
-if(!countUsers && typeof countUsers == "object") {
-  console.log("Вы отменили!");
+const input = {
+  type: "number",
+  placeholder: "Введите возраст",
+  styles: {
+    display: "flex",
+    margin: "20px auto 0",
+    padding: "5px 10px",
+    border: "2px solid gold",
+    outlineColor: "lightgreen",
+    fontFamily: "Verdana, sans-serif",
+    fontSize: "18px",
+    color: "blue"
+  },
+  getType() {
+    return this.type;
+  },
+  getPlaceholder() {
+    return this.placeholder;
+  },
+  getStyles() {
+    return this.styles;
+  }
 }
-else {
-  if(countUsers == "") {
-    console.log("Вы ничего не ввели!");
+
+const inputAge = createElem("input");
+document.body.insertAdjacentElement("afterbegin", inputAge);
+inputAge.focus();
+
+let p; //абзац с результатом
+
+const result = () => {
+  if(document.getElementById("result")) {
+    p.innerHTML = "Новый: ";
   }
   else {
-    if(isNaN(countUsers)) {
-      console.log("Вы ввели не число!");
-    }
-    else {
-      for(let i = 0; i < countUsers; i++) {
-        user = createUser();
-        users[i] = user;
-      }
-    }
+    p = createElem("p");
+    inputAge.insertAdjacentElement("afterend", p);
   }
 }
 
-function createUser() {
-  let user = {};
+inputAge.addEventListener("input", () => {
+  result();
+})
 
-  user.name = prompt("Имя:");
-  user.sex = prompt("Пол (м, ж):");
-  user.age = randomAge();
+function createElem(tagName) {
+  elem = document.createElement(tagName);
 
-  return user;
-}
+  switch(tagName) {
+    case "p": elem.setAttribute("id", "result");
+              
+              elem.style.textAlign = "center";
+              elem.style.fontFamily = "Georgia, serif";
+              elem.style.fontSize = "22px";
+              elem.style.color = "green";
 
-function randomAge() {
-  return age = (Math.random() * 100).toFixed(0);
-}
+              elem.innerHTML = `Вам: ${inputAge.value} ${getGrammaticYear(inputAge.value)}`;
+              break;
+    case "input": elem.setAttribute("type", input.getType());
+                  elem.setAttribute("placeholder", input.getPlaceholder());
 
-const getUserName = function(user) { return user.name; }
-getUsers(users);
-
-function getUsers(users) {
-  for(let user of users) {
-    console.log(`${getUserName(user)}, возраст - ${user.age}`);
+                  for(let key in input.getStyles()) {
+                    elem.style[key] = input.getStyles()[key];
+                  }
+                  break;
   }
+  
+  return elem;
 }
+
+function getGrammaticYear(years) {
+  let result = "";
+
+//1, 21, 31,... (кроме 11) - "год"
+//2 - 4, 22, 23, 24,... (кроме 12, 13, 14) - "года"
+//5 - 20, 25-30, 35-40,... - "лет"
+
+  
+  return result;
+}
+
+// let users = [];
+// let user;
+
+// let countUsers = prompt("Кол-во пользователей (объектов):"); //string или null (object)
+
+// if(!countUsers && typeof countUsers == "object") {
+//   console.log("Вы отменили!");
+// }
+// else {
+//   if(countUsers == "") {
+//     console.log("Вы ничего не ввели!");
+//   }
+//   else {
+//     if(isNaN(countUsers)) {
+//       console.log("Вы ввели не число!");
+//     }
+//     else {
+//       for(let i = 0; i < countUsers; i++) {
+//         user = User();
+//         users[i] = user;
+//       }
+//     }
+//   }
+// }
+
+// function User() {
+//   let user = {};
+
+//   user.name = prompt("Имя:");
+//   user.sex = prompt("Пол (м, ж):");
+//   user.age = randomAge();
+
+//   return user;
+// }
+
+// function randomAge() {
+//   return age = (Math.random() * 100).toFixed(0);
+// }
+
+// const getUserName = function(user) { return user.name; }
+// getUsers(users);
+
+// function getUsers(users) {
+//   for(let user of users) {
+//     console.log(`${getUserName(user)}, возраст - ${user.age}`);
+//   }
+// }
 
 
 
