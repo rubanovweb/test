@@ -30,7 +30,7 @@ let p; //абзац с результатом
 
 const result = () => {
   if(document.getElementById("result")) {
-    p.innerHTML = "Новый: ";
+    p.innerHTML = `Вам: ${inputAge.value} ${getGrammaticYear(+inputAge.value)}`;
   }
   else {
     p = createElem("p");
@@ -53,7 +53,7 @@ function createElem(tagName) {
               elem.style.fontSize = "22px";
               elem.style.color = "green";
 
-              elem.innerHTML = `Вам: ${inputAge.value} ${getGrammaticYear(inputAge.value)}`;
+              elem.innerHTML = `Вам: ${inputAge.value} ${getGrammaticYear(+inputAge.value)}`;
               break;
     case "input": elem.setAttribute("type", input.getType());
                   elem.setAttribute("placeholder", input.getPlaceholder());
@@ -72,9 +72,21 @@ function getGrammaticYear(years) {
 
 //1, 21, 31,... (кроме 11) - "год"
 //2 - 4, 22, 23, 24,... (кроме 12, 13, 14) - "года"
-//5 - 20, 25-30, 35-40,... - "лет"
+//5 - 19, 20, 25 - 29, 30, 35 - 39, 40,... - "лет"
 
-  
+  if(years % 10 == 1 && years % 100 != 11) {
+    result = "год";
+  }
+  else if(years % 10 >= 2
+           && years % 10 <= 4
+           && (years % 100 > 14 || years % 100 < 12)
+         ) 
+  {
+    result = "года";
+  }
+  else {
+    result = "лет";
+  }
   return result;
 }
 
