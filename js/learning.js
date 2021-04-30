@@ -1,6 +1,14 @@
+//форма с переключателями
 const form = document.getElementById("generateCard");
+//коллекция переключателей
+const radioButtons = document.querySelectorAll("[type='radio']");
+
+let card; //объект - создаваемая карточка
+const text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur temporibus maxime doloremque minima? Odio quaerat, et at necessitatibus error animi, impedit libero sit, expedita nulla debitis. Quasi qui ipsa commodi.";
+let imgUrl = ""; //адрес изображения
 
 class Card {
+  //конструктор с параметрами, создающий объект карточку (не DOM-объект)
   constructor(id, className, text, imgUrl) {
     this.id = id;
     this.className = className;
@@ -8,58 +16,80 @@ class Card {
     this.imageSource = imgUrl;
   }
 
+  //метод - создание карточки
   createCard() {
-    let card;
-    let p;
-    let img;
+    let card; //объект - блок (div)
+    let p; //объект - абзац (p)
 
     card = document.createElement("div");
     card.id = this.id;
     card.className = "card";
     card.classList.add(this.className);
 
-    form.insertAdjacentElement("afterend", card);
+    form.insertAdjacentElement("afterend", card); //добавляем карточку после формы
 
     p = document.createElement("p");
-    p.textContent = this.text;
+    p.textContent = this.text; //добавляем текст абзацу
 
-    card.append(p);
+    card.append(p); //добавляем абзац в конец карточки
 
+    //если путь к картинке задан, то создаём её
     if(typeof this.imageSource != "undefined") {
-      img = document.createElement("img");
-      img.src = this.imageSource;
-      img.alt = "Фото";
-
-      card.prepend(img);
+      this.createImage(card);
     }
+  }
+
+  //метод - создание изображения в карточке
+  createImage(card) {
+    let img; //объект - изображение в карточке
+    
+    img = document.createElement("img");
+    img.src = this.imageSource;
+    img.alt = "Фото";
+
+    card.prepend(img); //добавляем изображение в начало карточки
+  }
+
+  //метод - модификация объекта (карточки)
+  modifiedCard(typeCard, imgUrl) {  
+    this.className = typeCard;
+
+    //удаление изображения в случае выбора "Без фото"
+    if(typeCard == "card-no-photo") {      
+      document.querySelector(".card img").remove();
+    }
+    else {
+      this.imageSource = imgUrl;
+      if(!document.querySelector(".card img")) {
+        this.createImage(document.getElementById("card"));
+      }
+    }
+    document.getElementById("card").className = `card ${this.className}`;
   }
 }
 
-const text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur temporibus maxime doloremque minima? Odio quaerat, et at necessitatibus error animi, impedit libero sit, expedita nulla debitis. Quasi qui ipsa commodi.";
-let imgUrl = "";
-let card;
-
-const radioButtons = document.querySelectorAll("[type='radio']");
-
 for(let radio of radioButtons) {
-  
-  radio.addEventListener("input", () => {
-    if(document.getElementById("card")) {
-      console.log("Есть!");
+  radio.addEventListener("change", () => {
+    if(radio.value == "card-no-photo") {
+        imgUrl = undefined;
     }
     else {
-      if(radio.value == "card-no-photo") {
-        imgUrl = undefined;
-      }
-      else {
-        imgUrl = "https://picsum.photos/500/300";
-      }
+      imgUrl = "https://picsum.photos/500/300";
+    }
+
+    if(document.getElementById("card")) {
+      card.modifiedCard(radio.value, imgUrl);
+      console.log(card);
+    }
+    else {
       card = new Card("card", radio.value, text, imgUrl);
       card.createCard();
     }
-  })
-
+  });
 }
+
+
+
 
 // const input = {
 //   type: "number",
