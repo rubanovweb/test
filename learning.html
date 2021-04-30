@@ -12,6 +12,20 @@
 </head>
 <body>
 
+    <form id="generateCard" action="#" method="get">
+      <fieldset>
+        <legend>Выберите вид карточки:</legend>
+
+        <input id="cardPhoto" type="radio" name="cardTypes" value="card-photo">
+        <label for="cardPhoto">С фото и текстом</label>
+
+        <input id="cardNoPhoto" type="radio" name="cardTypes" value="card-no-photo">
+        <label for="cardNoPhoto">Без фото</label>
+
+        <input id="cardDecorative" type="radio" name="cardTypes" value="card-decorative">
+        <label for="cardDecorative">Декоративная</label>
+      </fieldset>
+    </form>
 
     <script src="js/learning.js"></script>
 </body>
