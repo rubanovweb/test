@@ -9,11 +9,49 @@ let imgUrl = ""; //адрес изображения
 
 class Card {
   //конструктор с параметрами, создающий объект карточку (не DOM-объект)
+
+  _id = "";
+  _className = "";
+  _text = "";
+  _imageSource = "";
+
   constructor(id, className, text, imgUrl) {
-    this.id = id;
-    this.className = className;
-    this.text = text;
-    this.imageSource = imgUrl;
+    this.Id = id;
+    this.ClassName = className;
+    this.Text = text;
+    this.ImageSource = imgUrl;
+  }
+
+  get Id() {
+    return this._id;
+  }
+
+  set Id(value) {
+    this._id = value;
+  }
+
+  get ClassName() {
+    return this._className;
+  }
+
+  set ClassName(value) {
+    this._className = value;
+  }
+
+  get Text() {
+    return this._text;
+  }
+
+  set Text(value) {
+    this._text = value;
+  }
+
+  get ImageSource() {
+    return this._imageSource;
+  }
+
+  set ImageSource(value) {
+    this._imageSource = value;
   }
 
   //метод - создание карточки
@@ -22,19 +60,19 @@ class Card {
     let p; //объект - абзац (p)
 
     card = document.createElement("div");
-    card.id = this.id;
+    card.id = this.Id;
     card.className = "card";
-    card.classList.add(this.className);
+    card.classList.add(this.ClassName);
 
     form.insertAdjacentElement("afterend", card); //добавляем карточку после формы
 
     p = document.createElement("p");
-    p.textContent = this.text; //добавляем текст абзацу
+    p.textContent = this.Text; //добавляем текст абзацу
 
     card.append(p); //добавляем абзац в конец карточки
 
     //если путь к картинке задан, то создаём её
-    if(typeof this.imageSource != "undefined") {
+    if(typeof this.ImageSource != "undefined") {
       this.createImage(card);
     }
   }
@@ -44,7 +82,7 @@ class Card {
     let img; //объект - изображение в карточке
     
     img = document.createElement("img");
-    img.src = this.imageSource;
+    img.src = this.ImageSource;
     img.alt = "Фото";
 
     card.prepend(img); //добавляем изображение в начало карточки
@@ -52,19 +90,19 @@ class Card {
 
   //метод - модификация объекта (карточки)
   modifiedCard(typeCard, imgUrl) {  
-    this.className = typeCard;
+    this.ClassName = typeCard;
+    this.ImageSource = imgUrl;
 
     //удаление изображения в случае выбора "Без фото"
     if(typeCard == "card-no-photo") {      
       document.querySelector(".card img").remove();
     }
     else {
-      this.imageSource = imgUrl;
       if(!document.querySelector(".card img")) {
         this.createImage(document.getElementById("card"));
       }
     }
-    document.getElementById("card").className = `card ${this.className}`;
+    document.getElementById("card").className = `card ${this.ClassName}`;
   }
 }
 
@@ -79,7 +117,6 @@ for(let radio of radioButtons) {
 
     if(document.getElementById("card")) {
       card.modifiedCard(radio.value, imgUrl);
-      console.log(card);
     }
     else {
       card = new Card("card", radio.value, text, imgUrl);
