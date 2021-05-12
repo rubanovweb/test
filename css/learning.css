@@ -55,8 +55,7 @@
 }
 
 .icons .icon-fb:hover {
-	background-image: url("../img/sprites2.png");
-	background-position: 0 0;
+	background-position: 0 -100px;
 }
 
 .icons .icon-tw:hover {
